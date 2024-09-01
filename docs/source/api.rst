@@ -1,7 +1,7 @@
 API
 ===
 
-.. automodule:: pythontemplate
+.. automodule:: llmake
    :members:
    :undoc-members:
    :show-inheritance:
