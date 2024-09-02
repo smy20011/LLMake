@@ -836,6 +836,17 @@ files = [
 ]
 
 [[package]]
+name = "mistletoe"
+version = "1.4.0"
+description = "A fast, extensible Markdown parser in pure Python."
+optional = false
+python-versions = "~=3.5"
+files = [
+    {file = "mistletoe-1.4.0-py3-none-any.whl", hash = "sha256:44a477803861de1237ba22e375c6b617690a31d2902b47279d1f8f7ed498a794"},
+    {file = "mistletoe-1.4.0.tar.gz", hash = "sha256:1630f906e5e4bbe66fdeb4d29d277e2ea515d642bb18a9b49b136361a9818c9d"},
+]
+
+[[package]]
 name = "myst-parser"
 version = "3.0.1"
 description = "An extended [CommonMark](https://spec.commonmark.org/) compliant parser,"
@@ -1559,4 +1570,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "a2518c3f2175d475e8363f08f72ba31e007083f03d3c53b88c1a9a14b21648d5"
+content-hash = "b63786f162990aa0e0f8797c88e866a413e6ca62a7b3c0822e0f4964a1b4e3e6"
