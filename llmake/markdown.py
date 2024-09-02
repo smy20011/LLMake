@@ -1,16 +1,12 @@
 import re
-
 from dataclasses import dataclass
-from re import Pattern
-from mistletoe import Document
 from enum import StrEnum
-from itertools import takewhile
+from re import Pattern
 
-from mistletoe.block_token import Heading, token
-from mistletoe.html_renderer import HtmlRenderer
+from mistletoe import Document
+from mistletoe.block_token import Heading
 from mistletoe.span_token import Link, RawText, SpanToken, add_token, remove_token
 from mistletoe.token import Token
-from collections import deque
 
 
 class LinkType(StrEnum):
@@ -32,7 +28,7 @@ class Task:
     start: int
     end: int
     context: list[Context]
-    dependency : list[str]
+    dependency: list[str]
 
 
 @dataclass
@@ -85,13 +81,12 @@ def parse_markdown(markdown: str):
     tasks = []
     for start, end in zip(task_lines, task_lines[1:]):
         links = get_context_links(lines[start:end])
-        dependency = [l.target for l in links if l.context_type == LinkType.HEAD_LINK]
-        context = [l for l in links if l.context_type != LinkType.HEAD_LINK]
+        dependency = [link.target for link in links if link.context_type == LinkType.HEAD_LINK]
+        context = [link for link in links if link.context_type != LinkType.HEAD_LINK]
         if not dependency:
             dependency = [t.name for t in tasks]
         name = lines[start][2:].lstrip()
         tasks.append(Task(name, start, end, context, dependency))
-
 
     return Project(lines, tasks)
 
