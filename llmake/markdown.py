@@ -1,6 +1,5 @@
 import re
 from dataclasses import dataclass
-from enum import StrEnum
 from re import Pattern
 
 from mistletoe import Document
@@ -8,18 +7,7 @@ from mistletoe.block_token import Heading
 from mistletoe.span_token import Link, RawText, SpanToken, add_token, remove_token
 from mistletoe.token import Token
 
-
-class LinkType(StrEnum):
-    WEB_LINK = "web_link"
-    WIKI_LINK = "wiki_link"
-    HEAD_LINK = "head_link"
-
-
-@dataclass
-class Context:
-    context_type: LinkType
-    name: str
-    target: str
+from .context import Context, LinkType
 
 
 @dataclass
@@ -35,6 +23,7 @@ class Task:
 class Project:
     prompt: list[str]
     tasks: list[Task]
+    context: list[Context]
 
 
 def _match_header(level: int, matcher: Pattern):
@@ -88,7 +77,10 @@ def parse_markdown(markdown: str):
         name = lines[start][2:].lstrip()
         tasks.append(Task(name, start, end, context, dependency))
 
-    return Project(lines, tasks)
+    prompt_wihtout_task = lines[: task_lines[0]] + lines[task_lines[-1] :]
+    context = get_context_links(prompt_wihtout_task)
+
+    return Project(lines, tasks, context)
 
 
 class WikiLinkToken(SpanToken):

@@ -1,5 +1,6 @@
 import json
 from dataclasses import asdict
+from pathlib import Path
 
 from cyclopts import App
 from mistletoe.ast_renderer import AstRenderer
@@ -12,8 +13,7 @@ app = App()
 
 @app.default
 def default(file):
-    with open(file) as f:
-        renderer = AstRenderer()
+    with Path.open(file) as f:
         print(json.dumps(asdict(parse_markdown(f.read())), indent=2))
 
 
