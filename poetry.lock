@@ -913,6 +913,20 @@ htmlsoup = ["BeautifulSoup4"]
 source = ["Cython (>=3.0.11)"]
 
 [[package]]
+name = "lxml-html-clean"
+version = "0.2.2"
+description = "HTML cleaner from lxml project"
+optional = false
+python-versions = "*"
+files = [
+    {file = "lxml_html_clean-0.2.2-py3-none-any.whl", hash = "sha256:177ebe822b39d1b68df7c0c34ba005cb087b23d3791dae87efb3a2bb162ef398"},
+    {file = "lxml_html_clean-0.2.2.tar.gz", hash = "sha256:cc34178e34673025c49c3d7f4bd48754e9e4b23875df2308f43c21733d8437fb"},
+]
+
+[package.dependencies]
+lxml = "*"
+
+[[package]]
 name = "markdown-it-py"
 version = "3.0.0"
 description = "Python port of markdown-it. Markdown parsing, done right!"
@@ -2373,4 +2387,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "14f631c8e8e170dd858229016312b81ef83f2039f015bc69d6a87070a5a1b45a"
+content-hash = "f950aa16b904fa6784f3b452c65a8b9ce10917c3a74cafac8d5bd210dc72ee11"
