@@ -190,4 +190,5 @@ exclude-deps =[
   "rich",
   "typing-extensions",
   "lxml-html-clean",
+  "newspaper4k"
 ]
