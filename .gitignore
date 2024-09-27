@@ -247,3 +247,6 @@ llmake/*.html
 
 # Poetry
 poetry.toml
+
+# jj
+.jj
