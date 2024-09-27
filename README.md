@@ -30,3 +30,13 @@ python -m pip install git+https://github.com/smy20011/llmake.git
 ```python
 import llmake
 ```
+
+# Roadmap
+
+- [ ] Create subcommands for each step
+    - [ ] llmake create-template
+    - [ ] llmake fetch-context
+    - [ ] llmake query
+- [ ] Support ninja build file generation
+- [ ] Test cases
+- [ ] Add more detailed documentation
