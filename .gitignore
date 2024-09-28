@@ -250,3 +250,6 @@ poetry.toml
 
 # jj
 .jj
+
+# Temp dir
+tmp
