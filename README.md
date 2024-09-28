@@ -35,7 +35,7 @@ import llmake
 
 - [ ] Create subcommands for each step
     - [ ] llmake create-template
-    - [ ] llmake fetch-context
+    - [x] llmake fetch-context
     - [ ] llmake query
 - [ ] Support ninja build file generation
 - [ ] Test cases
