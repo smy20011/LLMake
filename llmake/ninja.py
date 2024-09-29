@@ -1,6 +1,8 @@
+from io import StringIO
+
 from llmake.context import Context, LinkType
 from llmake.markdown import Project, Task
-from io import StringIO
+
 from .ninja_syntax import Writer
 
 
@@ -23,9 +25,7 @@ def create_ninja_file(projfile: str, proj: Project):
     all_contexts = proj.context + [ctx for task in proj.tasks for ctx in task.context]
     for ctx in all_contexts:
         if ctx.context_type == LinkType.WEB_LINK:
-            writer.build(
-                outputs=ctx.filename(), rule="fetch", variables={"url": ctx.target}
-            )
+            writer.build(outputs=ctx.filename(), rule="fetch", variables={"url": ctx.target})
 
     for task in proj.tasks:
         contexts = proj.context + task.context

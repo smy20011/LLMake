@@ -32,6 +32,10 @@ class Project:
     tasks: list[Task]
     context: list[Context]
 
+    def get_dependent_tasks(self, task: Task) -> list[Task]:
+        deps = set(task.dependency)
+        return [t for t in self.tasks if t.name in deps]
+
 
 def _match_header(level: int, matcher: Pattern):
     def fn(token: Token) -> bool:

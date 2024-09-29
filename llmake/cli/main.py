@@ -55,10 +55,15 @@ def create_prompt(input_file: str, task_name: str):
         for ctx, content in zip(contexts, load_fetched_context(contexts)):
             result.append(f"## {ctx.name}")
             result.append(content)
+        result.append("# Previous Finished Tasks")
+        for dep_task in doc.get_dependent_tasks(task):
+            result.append(f"## {dep_task.name}")
+            result.append(load_task_result(dep_task))
         result.append("# Task")
         result.extend(task.prompt)
 
     maybe_write(task_name + ".prompt.md", "\n".join(result))
+
 
 def maybe_write(filename: str, content: str):
     """Update the content of file only if the content is different."""
@@ -81,6 +86,11 @@ def load_fetched_context(contexts: list[Context]) -> Iterable[str]:
                     yield f.read()
             case LinkType.HEAD_LINK:
                 yield ""
+
+
+def load_task_result(task: Task) -> str:
+    with Path(task.filename()).open() as f:
+        return f.read()
 
 
 def run_app():
