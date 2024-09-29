@@ -13,8 +13,7 @@ from .context import Context, LinkType
 @dataclass
 class Task:
     name: str
-    start: int
-    end: int
+    prompt: list[str]
     context: list[Context]
     dependency: list[str]
 
@@ -75,12 +74,12 @@ def parse_markdown(markdown: str):
         if not dependency:
             dependency = [t.name for t in tasks]
         name = lines[start][2:].lstrip()
-        tasks.append(Task(name, start, end, context, dependency))
+        tasks.append(Task(name, lines[start:end], context, dependency))
 
     prompt_wihtout_task = lines[: task_lines[0]] + lines[task_lines[-1] :]
     context = get_context_links(prompt_wihtout_task)
 
-    return Project(lines, tasks, context)
+    return Project(prompt_wihtout_task, tasks, context)
 
 
 class WikiLinkToken(SpanToken):
@@ -111,7 +110,9 @@ def get_context_links(prompt: str | list[str]) -> list[Context]:
         if isinstance(token, WikiLinkToken):
             context.append(Context(token.link_type, token.name, token.target))
         if isinstance(token, Link):
-            context.append(Context(LinkType.WEB_LINK, token.label or "", token.target))
+            children = list(token.children or [])
+            name = children[0].content if children and isinstance(children[0], RawText) else ""
+            context.append(Context(LinkType.WEB_LINK, name, token.target))
         if token.children:
             for child in token.children:
                 dfs(child)
