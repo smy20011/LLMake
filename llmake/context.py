@@ -7,6 +7,8 @@ from pathlib import Path
 
 import newspaper
 
+from llmake.naming import slugify
+
 
 class LinkType(StrEnum):
     WEB_LINK = "web_link"
@@ -19,6 +21,9 @@ class Context:
     context_type: LinkType
     name: str
     target: str
+
+    def slug(self):
+        return slugify(self.name)
 
 
 def fetch_context(context: Context, base_dir: str | None = None):

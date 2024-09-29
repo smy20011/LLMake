@@ -4,7 +4,6 @@ from collections.abc import Iterable
 from dataclasses import asdict
 from pathlib import Path
 
-import slugify as slug
 from cyclopts import App
 from mistletoe.ast_renderer import AstRenderer
 from mistletoe.html_renderer import HTMLRenderer
@@ -12,6 +11,7 @@ from mistletoe.html_renderer import HTMLRenderer
 import llmake.context as ctx
 from llmake.context import Context, LinkType
 from llmake.markdown import parse_markdown
+from llmake.naming import slugify
 
 app = App()
 
@@ -78,10 +78,6 @@ def load_fetched_context(contexts: list[Context]) -> Iterable[str]:
                     yield f.read()
             case _:
                 yield ""
-
-
-def slugify(s: str) -> str:
-    return slug.slugify(s)
 
 
 def run_app():
