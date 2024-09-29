@@ -10,16 +10,21 @@ from mistletoe.html_renderer import HTMLRenderer
 
 import llmake.context as ctx
 from llmake.context import Context, LinkType
-from llmake.markdown import parse_markdown
+from llmake.markdown import Task, parse_markdown
 from llmake.naming import slugify
+from llmake.ninja import create_ninja_file
 
 app = App()
 
 
 @app.default
-def default(file):
-    with Path.open(file) as f:
-        print(json.dumps(asdict(parse_markdown(f.read())), indent=2))
+def create_ninja(file):
+    with Path(file).open() as f:
+        proj = parse_markdown(f.read())
+        buildfile = create_ninja_file(file, proj)
+
+    with Path("build.ninja").open("w") as f:
+        f.write(buildfile)
 
 
 @app.command
@@ -55,7 +60,6 @@ def create_prompt(input_file: str, task_name: str):
 
     maybe_write(task_name + ".prompt.md", "\n".join(result))
 
-
 def maybe_write(filename: str, content: str):
     """Update the content of file only if the content is different."""
     p = Path(filename)
@@ -75,7 +79,7 @@ def load_fetched_context(contexts: list[Context]) -> Iterable[str]:
             case LinkType.WEB_LINK:
                 with Path(context.filename()).open() as f:
                     yield f.read()
-            case _:
+            case LinkType.HEAD_LINK:
                 yield ""
 
 
