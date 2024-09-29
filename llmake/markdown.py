@@ -22,6 +22,9 @@ class Task:
     def slug(self):
         return slugify(self.name)
 
+    def filename(self):
+        return f"task_{self.slug()}.md"
+
 
 @dataclass
 class Project:

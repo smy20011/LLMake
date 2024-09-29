@@ -73,8 +73,7 @@ def load_fetched_context(contexts: list[Context]) -> Iterable[str]:
             case LinkType.WIKI_LINK:
                 yield ctx.fetch_context(context) or ""
             case LinkType.WEB_LINK:
-                fetched_filename = slugify(context.name)
-                with Path(fetched_filename).open() as f:
+                with Path(context.filename()).open() as f:
                     yield f.read()
             case _:
                 yield ""
