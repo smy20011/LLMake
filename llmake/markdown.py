@@ -7,6 +7,8 @@ from mistletoe.block_token import Heading
 from mistletoe.span_token import Link, RawText, SpanToken, add_token, remove_token
 from mistletoe.token import Token
 
+from llmake.naming import slugify
+
 from .context import Context, LinkType
 
 
@@ -16,6 +18,9 @@ class Task:
     prompt: list[str]
     context: list[Context]
     dependency: list[str]
+
+    def slug(self):
+        return slugify(self.name)
 
 
 @dataclass
