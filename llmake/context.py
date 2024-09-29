@@ -25,6 +25,11 @@ class Context:
     def slug(self):
         return slugify(self.name)
 
+    def filename(self):
+        if self.context_type == LinkType.WEB_LINK:
+            return f"context_{self.slug()}.md"
+        return f"{self.target}.md"
+
 
 def fetch_context(context: Context, base_dir: str | None = None):
     match context.context_type:
