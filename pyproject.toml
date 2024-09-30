@@ -34,6 +34,7 @@ cyclopts = "^2.9.7"
 mistletoe = "^1.4.0"
 newspaper4k = "^0.9.3.1"
 lxml-html-clean = "^0.2.2"
+litellm = "^1.48.6"
 
 [tool.poetry.group.docs.dependencies]
 myst-parser = {extras = ["linkify"], version = "^3.0.1"}

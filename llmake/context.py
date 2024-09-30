@@ -5,8 +5,6 @@ from dataclasses import dataclass
 from enum import StrEnum
 from pathlib import Path
 
-import newspaper
-
 from llmake.naming import slugify
 
 
@@ -51,6 +49,8 @@ def fetch_local_file(target: str, base_dir: str | None):
 
 
 def fetch_external_link(target: str):
+    import newspaper
+
     try:
         return newspaper.article(target).text
     except newspaper.ArticleException as e:
