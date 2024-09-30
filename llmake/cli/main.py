@@ -1,12 +1,8 @@
-import json
 import sys
 from collections.abc import Iterable
-from dataclasses import asdict
 from pathlib import Path
 
 from cyclopts import App
-from mistletoe.ast_renderer import AstRenderer
-from mistletoe.html_renderer import HTMLRenderer
 
 import llmake.context as ctx
 from llmake.context import Context, LinkType
@@ -73,7 +69,10 @@ def create_prompt(input_file: str, task_name: str):
 
 @app.command
 def query(input_file: str, output_file: str):
-    maybe_write(output_file, f"Query for {input_file}")
+    from .query import query
+
+    result = query(input_file, output_file)
+    maybe_write(output_file, result)
 
 
 def maybe_write(filename: str, content: str):

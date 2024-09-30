@@ -25,13 +25,17 @@ def create_makefile(projfile: str, proj: Project):
         all_files.append(task.filename())
         all_files.append(task.result_filename())
 
-    print(f"""
+    print(
+        f"""
 clean:
 \t@echo "Cleaning up generated files..."
 \t@rm "{'" "'.join(all_files)}"
-""", file=buildfile)
+""",
+        file=buildfile,
+    )
 
     return buildfile.getvalue()
+
 
 def make_context(url, output):
     return f"""
@@ -39,6 +43,7 @@ def make_context(url, output):
 \t@echo "Fetching webpage from {url}..."
 \t@llmake fetch-context web-link {url} {output}
 """
+
 
 def make_task(projfile, task: Task, deps):
     return f"""
@@ -50,4 +55,3 @@ def make_task(projfile, task: Task, deps):
 \t@echo "Querying LLM to generate result for task: {task.name}..."
 \t@llmake query {task.filename()} {task.result_filename()}
 """
-
