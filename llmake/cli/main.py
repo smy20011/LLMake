@@ -65,6 +65,11 @@ def create_prompt(input_file: str, task_name: str):
     maybe_write(task_name + ".prompt.md", "\n".join(result))
 
 
+@app.command
+def query(input_file: str, output_file: str):
+    maybe_write(output_file, f"Query for {input_file}")
+
+
 def maybe_write(filename: str, content: str):
     """Update the content of file only if the content is different."""
     p = Path(filename)
@@ -89,7 +94,7 @@ def load_fetched_context(contexts: list[Context]) -> Iterable[str]:
 
 
 def load_task_result(task: Task) -> str:
-    with Path(task.filename()).open() as f:
+    with Path(task.result_filename()).open() as f:
         return f.read()
 
 
