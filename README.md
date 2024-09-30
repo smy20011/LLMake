@@ -33,10 +33,10 @@ import llmake
 
 # Roadmap
 
-- [ ] Create subcommands for each step
-    - [ ] llmake create-template
+- [x] Create subcommands for each step
+    - [x] llmake create-template
     - [x] llmake fetch-context
-    - [ ] llmake query
-- [ ] Support ninja build file generation
+    - [x] llmake query
+- [x] Support makefile generation
 - [ ] Test cases
 - [ ] Add more detailed documentation
