@@ -10,6 +10,7 @@ from mistletoe.html_renderer import HTMLRenderer
 
 import llmake.context as ctx
 from llmake.context import Context, LinkType
+from llmake.makefile import create_makefile
 from llmake.markdown import Task, parse_markdown
 from llmake.naming import slugify
 from llmake.ninja import create_ninja_file
@@ -18,13 +19,18 @@ app = App()
 
 
 @app.default
-def create_ninja(file):
+def create_ninja(file, builder="makefile"):
     with Path(file).open() as f:
         proj = parse_markdown(f.read())
-        buildfile = create_ninja_file(file, proj)
 
-    with Path("build.ninja").open("w") as f:
-        f.write(buildfile)
+    if builder == "ninja":
+        buildfile = create_ninja_file(file, proj)
+        with Path("build.ninja").open("w") as f:
+            f.write(buildfile)
+    else:
+        buildfile = create_makefile(file, proj)
+        with Path("makefile").open("w") as f:
+            f.write(buildfile)
 
 
 @app.command
@@ -62,7 +68,7 @@ def create_prompt(input_file: str, task_name: str):
         result.append("# Task")
         result.extend(task.prompt)
 
-    maybe_write(task_name + ".prompt.md", "\n".join(result))
+    maybe_write(task.filename(), "\n".join(result))
 
 
 @app.command
