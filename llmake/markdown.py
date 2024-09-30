@@ -25,6 +25,9 @@ class Task:
     def filename(self):
         return f"task_{self.slug()}.md"
 
+    def result_filename(self):
+        return f"result_{self.slug()}.md"
+
 
 @dataclass
 class Project:
